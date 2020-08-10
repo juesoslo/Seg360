@@ -1,0 +1,21 @@
+runtime:    java11
+service:    ml-seg360
+instance_class: F2
+
+env_variables:
+  #DEV Transmilenio
+  SECURITY_JDBC_URL: "jdbc:postgresql://localhost:5432/seg360"
+  SECURITY_JDBC_USER: seg360
+  SECURITY_JDBC_PASSWORD: Sec*969676
+
+#vpc_access_connector:
+#  name: ""
+
+automatic_scaling:
+  target_cpu_utilization: 0.8
+  target_throughput_utilization: 0.8
+  min_instances: 1
+  max_instances: 5
+  min_pending_latency: 5000ms #30ms  # default value
+  #max_pending_latency: 100ms
+  max_idle_instances: 1
