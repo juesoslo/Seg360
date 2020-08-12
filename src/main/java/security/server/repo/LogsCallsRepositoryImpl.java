@@ -79,7 +79,11 @@ public class LogsCallsRepositoryImpl implements LogsCallsRepository {
     @Transactional @ReadOnly
     private Optional<?> readFromDataBaseByMinute( ) {
         try {
-            String qlString = "Select dates.datebyminute as date, internal.promedio as avg_response_time, internal.cantidad as total_requests, external.promedio as avg_response_time_api_calls, external.cantidad as total_count_api_calls  \n" +
+            String qlString = "Select dates.datebyminute as date," +
+                    "                coalesce(internal.promedio, 0) as avg_response_time," +
+                    "                coalesce(internal.cantidad, 0) as total_requests, " +
+                    "                coalesce(external.promedio, 0) as avg_response_time_api_calls," +
+                    "                coalesce(external.cantidad, 0) as total_count_api_calls  \n" +
                     "From \t(select cast(date_trunc('minute', TO_TIMESTAMP(execution_date, 'YYYY-MM-DD\"T\"HH24:MI:SS.MS\"Z\"')) as varchar) as datebyminute\n" +
                     "\t\t\tfrom LogsCalls\n" +
                     "\t\t\tgroup by 1) dates\n" +
@@ -98,10 +102,11 @@ public class LogsCallsRepositoryImpl implements LogsCallsRepository {
                     "                  from LogsCalls lc2\n" +
                     "                 where lc2.origin = 'EXTERNAL'\n" +
                     "\t\t\t\t group by 1) external\n" +
-                    "\t\tON\tdates.datebyminute = external.datebyminute\n";
+                    "\t\tON\tdates.datebyminute = external.datebyminute\n"+
+                    "\t\torder by dates.datebyminute asc";
 
 
-            Query query = entityManager.createNativeQuery(qlString);
+            Query query = entityManager.createNativeQuery(qlString, "HealthInfoResult");
 
             return Optional.of( query.getResultList() );
         }

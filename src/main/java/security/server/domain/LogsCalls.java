@@ -1,11 +1,23 @@
 package security.server.domain;
 
+import security.server.pojos.HealthInfoPojo;
+
 import javax.persistence.*;
 
 /**
  * Esta clase representa la entidad LogsCalls, de la base de datos postgres.
  * Esta entidad almacena el log de las ejecuciones del api externo e interno.
  */
+@SqlResultSetMapping(name = "HealthInfoResult", classes = {
+        @ConstructorResult(targetClass = HealthInfoPojo.class,
+                columns = {
+                        @ColumnResult(name = "date", type = String.class),
+                        @ColumnResult(name = "avg_response_time", type = Long.class),
+                        @ColumnResult(name = "total_requests", type = Long.class),
+                        @ColumnResult(name = "avg_response_time_api_calls", type = Long.class),
+                        @ColumnResult(name = "total_count_api_calls", type = Long.class),
+                })
+})
 @Entity
 @Table(name = "LogsCalls")
 public class LogsCalls
