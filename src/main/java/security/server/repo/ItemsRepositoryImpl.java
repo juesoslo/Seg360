@@ -4,17 +4,23 @@ import javax.inject.Inject;
 import javax.persistence.TypedQuery;
 import javax.transaction.Transactional;
 
+import com.fasterxml.jackson.databind.DeserializationFeature;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import io.micronaut.transaction.annotation.ReadOnly;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import security.server.clients.MercadoLibreApiClient;
 import security.server.domain.Items;
 import security.server.domain.LogsCalls;
+import security.server.pojos.ItemChildrenPojo;
+import security.server.pojos.ItemPojo;
 import security.server.utils.LogsUtilities;
 
 import javax.inject.Singleton;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 
 /**
@@ -116,8 +122,13 @@ public class ItemsRepositoryImpl implements ItemsRepository {
             LOG.info("- Consultando "+itemId+" children: "+childrenResult);
 
             //Convirtiendo la información obtenida en el formato esperado.
-            String itemsResult = parentResult; //Todo: convertir la información obtenida en el formato esperado.
+            String itemsResult = convertItemResult( parentResult, childrenResult );
             LOG.info("- Convirtiendo "+itemId+": "+itemsResult);
+
+            if(itemsResult.isEmpty() || itemsResult.equalsIgnoreCase("") ) {
+                LOG.error("No se pudo converir la info del item "+itemId+" al formato esperado.");
+                return Optional.empty();
+            }
 
             //Almacenando el registro en la base de datos local.
             Optional<?> dataCreated = createOnDataBase(itemId, parentResult, childrenResult, itemsResult);
@@ -132,6 +143,42 @@ public class ItemsRepositoryImpl implements ItemsRepository {
             LOG.error("No se encontró el item "+itemId+". "+exception.getMessage());
             return Optional.empty();
         }
+    }
+
+    private String convertItemResult(String parentResult, String childrenResult) {
+        String response = "";
+
+        try {
+            //Usamos ObjectMapper para convertir json a pojo y pojo a json.
+            ObjectMapper mapper = new ObjectMapper()
+                    //Ignorar los campos que no se especificaron en los pojos.
+                    .configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
+
+            //Convirtiendo la info obtenida del Item a un pojo con los campos filtrados.
+            ItemPojo itemPojo = mapper.readValue(parentResult, ItemPojo.class);
+
+            //Convirtiendo la info obtenida del los hijos del Item a un pojo con los campos filtrados.
+            List<ItemChildrenPojo> itemChildrenPojos = mapper.readValue(childrenResult, (new ArrayList<ItemChildrenPojo>()).getClass());
+
+            //Quitandole los campos adicionales a los hijos
+            for (int i = 0; i < itemChildrenPojos.size(); i++) {
+                String itemChildrenPojoString = mapper.writeValueAsString(itemChildrenPojos.get(i));
+                ItemChildrenPojo itemChildrenPojoConverted = mapper.readValue(itemChildrenPojoString, ItemChildrenPojo.class);
+                itemChildrenPojos.set( i, itemChildrenPojoConverted );
+            }
+
+            //Agregando la info obtenida de los hijos del item al pojo del Item.
+            itemPojo.setChildren(itemChildrenPojos);
+
+            //Convirtiendo el pojo formado a String.
+            response = mapper.writeValueAsString(itemPojo);
+
+        } catch( Exception exception ) {
+            LOG.error("Error convirtiendo información obtenida de la api. Parent: "+parentResult+". Children: "+childrenResult);
+            exception.printStackTrace();
+        }
+
+        return response;
     }
 
     /**
