@@ -10,7 +10,7 @@ public class ItemPojo {
     private String id;
     private String title;
     private String category_id;
-    private String price;
+    private long price;
     private String start_time;
     private String stop_time;
     private List<ItemChildrenPojo> children;
@@ -39,11 +39,11 @@ public class ItemPojo {
         this.category_id = category_id;
     }
 
-    public String getPrice() {
+    public long getPrice() {
         return price;
     }
 
-    public void setPrice(String price) {
+    public void setPrice(long price) {
         this.price = price;
     }
 
