@@ -12,6 +12,11 @@ micronaut:
         urls:
           - "${API_ITEMS_URL:`https://api.mercadolibre.com/`}"
 
+endpoints:
+  health:
+    enabled: False
+    sensitive: False
+
 datasources:
   default:
     url: ${SECURITY_JDBC_URL:`jdbc:postgresql://localhost:5432/seg360`}

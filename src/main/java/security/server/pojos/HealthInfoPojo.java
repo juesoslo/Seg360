@@ -7,16 +7,26 @@ public class HealthInfoPojo {
     private long avg_response_time;
     private long total_requests;
     private long avg_response_time_api_calls;
+    private long total_count_api_calls;
     private List<HealthInfoRequestsPojo> info_requests;
 
     public HealthInfoPojo() {
     }
 
-    public HealthInfoPojo(String date, long avg_response_time, long total_requests, long avg_response_time_api_calls) {
+    public HealthInfoPojo(String date, long avg_response_time, long total_requests, long avg_response_time_api_calls, long total_count_api_calls) {
         this.date = date;
         this.avg_response_time = avg_response_time;
         this.total_requests = total_requests;
         this.avg_response_time_api_calls = avg_response_time_api_calls;
+        this.total_count_api_calls = total_count_api_calls;
+    }
+
+    public long getTotal_count_api_calls() {
+        return total_count_api_calls;
+    }
+
+    public void setTotal_count_api_calls(long total_count_api_calls) {
+        this.total_count_api_calls = total_count_api_calls;
     }
 
     public String getDate() {

@@ -18,4 +18,10 @@ public interface LogsCallsRepository {
      * @return              true, si se insertó el registro.
      */
     Optional<?> create(long responseTime, String statusCode, String origin, String request, String response, String url);
+
+    /**
+     * Devuelve info para el health check.
+     * @return  Info para el health check.
+     */
+    Optional<?> read();
 }

@@ -23,11 +23,12 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="4f7c7c29-62b4-41b6-87cf-4ff122849e0d" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/.idea/uiDesigner.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/security/server/pojos/HealthInfoPojo.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/security/server/pojos/HealthInfoRequestsPojo.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/security/server/controller/HealthController.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/security/server/pojos/ItemPojo.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/security/server/pojos/ItemPojo.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/security/server/pojos/HealthInfoPojo.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/security/server/pojos/HealthInfoPojo.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/security/server/repo/LogsCallsRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/security/server/repo/LogsCallsRepository.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/security/server/repo/LogsCallsRepositoryImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/security/server/repo/LogsCallsRepositoryImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/application.yml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/application.yml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -69,6 +70,7 @@
   </component>
   <component name="RecentsManager">
     <key name="CopyClassDialog.RECENTS_KEY">
+      <recent name="security.server.controller" />
       <recent name="security.server.pojos" />
       <recent name="security.server.repo" />
       <recent name="security.server.domain" />
@@ -114,7 +116,14 @@
       <option name="project" value="LOCAL" />
       <updated>1597207336372</updated>
     </task>
-    <option name="localTasksCounter" value="5" />
+    <task id="LOCAL-00005" summary="Se agregan pojos para el healthchek">
+      <created>1597208220472</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1597208220472</updated>
+    </task>
+    <option name="localTasksCounter" value="6" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -133,7 +142,8 @@
     <MESSAGE value="Consulta la api y almacena en la BD local." />
     <MESSAGE value="Registra log por cada llamado interno o externo." />
     <MESSAGE value="Convierte los json recibidos al formato solicitado." />
-    <option name="LAST_COMMIT_MESSAGE" value="Convierte los json recibidos al formato solicitado." />
+    <MESSAGE value="Se agregan pojos para el healthchek" />
+    <option name="LAST_COMMIT_MESSAGE" value="Se agregan pojos para el healthchek" />
   </component>
   <component name="WindowStateProjectService">
     <state x="479" y="131" width="1024" height="852" key="#Project_Structure" timestamp="1597197608021">
@@ -144,61 +154,61 @@
       <screen x="72" y="27" width="1848" height="1053" />
     </state>
     <state x="454" y="211" key="#com.intellij.execution.impl.EditConfigurationsDialog/72.27.1848.1053@72.27.1848.1053" timestamp="1597197818795" />
-    <state x="811" y="259" width="374" height="569" key="#com.intellij.ide.util.MemberChooser" timestamp="1597208185958">
+    <state x="811" y="259" width="374" height="569" key="#com.intellij.ide.util.MemberChooser" timestamp="1597214993998">
       <screen x="72" y="27" width="1848" height="1053" />
     </state>
     <state x="768" y="259" width="374" height="569" key="#com.intellij.ide.util.MemberChooser/1920.0.1920.1080/0.27.1920.1053@0.27.1920.1053" timestamp="1597043651081" />
-    <state x="811" y="259" width="374" height="569" key="#com.intellij.ide.util.MemberChooser/72.27.1848.1053@72.27.1848.1053" timestamp="1597208185958" />
+    <state x="811" y="259" width="374" height="569" key="#com.intellij.ide.util.MemberChooser/72.27.1848.1053@72.27.1848.1053" timestamp="1597214993998" />
     <state x="351" y="17" width="1197" height="1060" key="#com.intellij.refactoring.rename.AutomaticRenamingDialog" timestamp="1597039334926">
       <screen x="0" y="27" width="1920" height="1053" />
     </state>
     <state x="351" y="17" width="1197" height="1060" key="#com.intellij.refactoring.rename.AutomaticRenamingDialog/1920.0.1920.1080/0.27.1920.1053@0.27.1920.1053" timestamp="1597039334926" />
-    <state x="453" y="97" width="1100" height="871" key="CommitChangelistDialog2" timestamp="1597207336316">
+    <state x="453" y="97" width="1100" height="871" key="CommitChangelistDialog2" timestamp="1597208220414">
       <screen x="72" y="27" width="1848" height="1053" />
     </state>
     <state x="396" y="97" width="1118" height="893" key="CommitChangelistDialog2/1920.0.1920.1080/0.27.1920.1053@0.27.1920.1053" timestamp="1597046896820" />
-    <state x="453" y="97" width="1100" height="871" key="CommitChangelistDialog2/72.27.1848.1053@72.27.1848.1053" timestamp="1597207336316" />
-    <state width="1802" height="198" key="GridCell.Tab.0.bottom" timestamp="1597207972543">
+    <state x="453" y="97" width="1100" height="871" key="CommitChangelistDialog2/72.27.1848.1053@72.27.1848.1053" timestamp="1597208220414" />
+    <state width="1802" height="259" key="GridCell.Tab.0.bottom" timestamp="1597215649523">
       <screen x="72" y="27" width="1848" height="1053" />
     </state>
     <state width="1874" height="368" key="GridCell.Tab.0.bottom/1920.0.1920.1080/0.27.1920.1053@0.27.1920.1053" timestamp="1597046751863" />
     <state width="1802" height="101" key="GridCell.Tab.0.bottom/1920.0.1920.1080/72.27.1848.1053@72.27.1848.1053" timestamp="1597117807222" />
-    <state width="1802" height="198" key="GridCell.Tab.0.bottom/72.27.1848.1053@72.27.1848.1053" timestamp="1597207972543" />
-    <state width="1802" height="198" key="GridCell.Tab.0.center" timestamp="1597207972543">
+    <state width="1802" height="259" key="GridCell.Tab.0.bottom/72.27.1848.1053@72.27.1848.1053" timestamp="1597215649523" />
+    <state width="1802" height="259" key="GridCell.Tab.0.center" timestamp="1597215649522">
       <screen x="72" y="27" width="1848" height="1053" />
     </state>
     <state width="1874" height="368" key="GridCell.Tab.0.center/1920.0.1920.1080/0.27.1920.1053@0.27.1920.1053" timestamp="1597046751863" />
     <state width="1802" height="101" key="GridCell.Tab.0.center/1920.0.1920.1080/72.27.1848.1053@72.27.1848.1053" timestamp="1597117807222" />
-    <state width="1802" height="198" key="GridCell.Tab.0.center/72.27.1848.1053@72.27.1848.1053" timestamp="1597207972543" />
-    <state width="1802" height="198" key="GridCell.Tab.0.left" timestamp="1597207972542">
+    <state width="1802" height="259" key="GridCell.Tab.0.center/72.27.1848.1053@72.27.1848.1053" timestamp="1597215649522" />
+    <state width="1802" height="259" key="GridCell.Tab.0.left" timestamp="1597215649522">
       <screen x="72" y="27" width="1848" height="1053" />
     </state>
     <state width="1874" height="368" key="GridCell.Tab.0.left/1920.0.1920.1080/0.27.1920.1053@0.27.1920.1053" timestamp="1597046751862" />
     <state width="1802" height="101" key="GridCell.Tab.0.left/1920.0.1920.1080/72.27.1848.1053@72.27.1848.1053" timestamp="1597117807222" />
-    <state width="1802" height="198" key="GridCell.Tab.0.left/72.27.1848.1053@72.27.1848.1053" timestamp="1597207972542" />
-    <state width="1802" height="198" key="GridCell.Tab.0.right" timestamp="1597207972543">
+    <state width="1802" height="259" key="GridCell.Tab.0.left/72.27.1848.1053@72.27.1848.1053" timestamp="1597215649522" />
+    <state width="1802" height="259" key="GridCell.Tab.0.right" timestamp="1597215649522">
       <screen x="72" y="27" width="1848" height="1053" />
     </state>
     <state width="1874" height="368" key="GridCell.Tab.0.right/1920.0.1920.1080/0.27.1920.1053@0.27.1920.1053" timestamp="1597046751863" />
     <state width="1802" height="101" key="GridCell.Tab.0.right/1920.0.1920.1080/72.27.1848.1053@72.27.1848.1053" timestamp="1597117807222" />
-    <state width="1802" height="198" key="GridCell.Tab.0.right/72.27.1848.1053@72.27.1848.1053" timestamp="1597207972543" />
+    <state width="1802" height="259" key="GridCell.Tab.0.right/72.27.1848.1053@72.27.1848.1053" timestamp="1597215649522" />
     <state x="731" y="237" width="519" height="640" key="RollbackChangesDialog" timestamp="1597197842309">
       <screen x="72" y="27" width="1848" height="1053" />
     </state>
     <state x="731" y="237" width="519" height="640" key="RollbackChangesDialog/72.27.1848.1053@72.27.1848.1053" timestamp="1597197842309" />
-    <state x="606" y="276" width="800" height="535" key="Vcs.Push.Dialog.v2" timestamp="1597207338014">
+    <state x="606" y="276" width="800" height="535" key="Vcs.Push.Dialog.v2" timestamp="1597208221988">
       <screen x="72" y="27" width="1848" height="1053" />
     </state>
     <state x="555" y="276" width="800" height="535" key="Vcs.Push.Dialog.v2/1920.0.1920.1080/0.27.1920.1053@0.27.1920.1053" timestamp="1597046904156" />
-    <state x="606" y="276" width="800" height="535" key="Vcs.Push.Dialog.v2/72.27.1848.1053@72.27.1848.1053" timestamp="1597207338014" />
+    <state x="606" y="276" width="800" height="535" key="Vcs.Push.Dialog.v2/72.27.1848.1053@72.27.1848.1053" timestamp="1597208221988" />
     <state x="777" y="468" width="428" height="177" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2" timestamp="1597197777200">
       <screen x="72" y="27" width="1848" height="1053" />
     </state>
     <state x="777" y="468" width="428" height="177" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2/72.27.1848.1053@72.27.1848.1053" timestamp="1597197777200" />
-    <state x="660" y="252" key="run.anything.popup" timestamp="1597200918707">
+    <state x="660" y="252" key="run.anything.popup" timestamp="1597214168104">
       <screen x="72" y="27" width="1848" height="1053" />
     </state>
-    <state x="660" y="252" key="run.anything.popup/72.27.1848.1053@72.27.1848.1053" timestamp="1597200918707" />
+    <state x="660" y="252" key="run.anything.popup/72.27.1848.1053@72.27.1848.1053" timestamp="1597214168104" />
     <state x="659" y="259" width="672" height="678" key="search.everywhere.popup" timestamp="1597198687206">
       <screen x="72" y="27" width="1848" height="1053" />
     </state>
