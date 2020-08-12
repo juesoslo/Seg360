@@ -12,6 +12,7 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.transaction.Transactional;
 import java.util.Optional;
+import java.util.concurrent.TimeUnit;
 
 /**
  * Consulta la información local y externa de los items.
@@ -42,10 +43,11 @@ public class LogsCallsRepositoryImpl implements LogsCallsRepository {
      * @return              true, si se insertó el registro.
      */
     @Transactional
-    public Optional<?> create(String responseTime, String statusCode, String origin, String request, String response, String url) {
+    public Optional<?> create(long responseTime, String statusCode, String origin, String request, String response, String url) {
         try {
             String dateCreated = LogsUtilities.getToday();
-            LogsCalls logsCalls = new LogsCalls(dateCreated, responseTime, statusCode, origin, request, response, url);
+            responseTime = TimeUnit.MILLISECONDS.convert(responseTime, TimeUnit.NANOSECONDS);
+            LogsCalls logsCalls = new LogsCalls(dateCreated, responseTime+"", statusCode, origin, request, response, url);
             entityManager.persist(logsCalls);
             return Optional.of(logsCalls);
         }

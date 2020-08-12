@@ -106,6 +106,11 @@ public class ItemsRepositoryImpl implements ItemsRepository {
             String parentResult = getItemExternal(itemId);
             LOG.info("- Consultando "+itemId+": "+parentResult);
 
+            if(parentResult.isEmpty() || parentResult.equalsIgnoreCase("") ) {
+                LOG.error("No se encontró el item "+itemId+".");
+                return Optional.empty();
+            }
+
             //Consultando la información de los hijos del ITEM.
             String childrenResult  = getItemChildrenExternal( itemId );
             LOG.info("- Consultando "+itemId+" children: "+childrenResult);
@@ -153,7 +158,7 @@ public class ItemsRepositoryImpl implements ItemsRepository {
             long executionTime = System.nanoTime() - initialTime;
             String requestLog = itemId;
             String url = LogsCalls.URL_PARENT;
-            logsCallsRepository.create( executionTime+"", statusCode, LogsCalls.ORIGIN_EXTERNAL, requestLog,  responseLog, url);
+            logsCallsRepository.create( executionTime, statusCode, LogsCalls.ORIGIN_EXTERNAL, requestLog,  responseLog, url);
         }
         return response;
     }
@@ -182,7 +187,7 @@ public class ItemsRepositoryImpl implements ItemsRepository {
             long executionTime = System.nanoTime() - initialTime;
             String requestLog = itemId;
             String url = LogsCalls.URL_CHILDREN;
-            logsCallsRepository.create( executionTime+"", statusCode, LogsCalls.ORIGIN_EXTERNAL, requestLog,  responseLog, url);
+            logsCallsRepository.create( executionTime, statusCode, LogsCalls.ORIGIN_EXTERNAL, requestLog,  responseLog, url);
         }
         return response;
     }

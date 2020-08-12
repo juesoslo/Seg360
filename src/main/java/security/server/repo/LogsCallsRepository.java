@@ -17,5 +17,5 @@ public interface LogsCallsRepository {
      * @param url           Url ejecutada.
      * @return              true, si se insertó el registro.
      */
-    Optional<?> create(String responseTime, String statusCode, String origin, String request, String response, String url);
+    Optional<?> create(long responseTime, String statusCode, String origin, String request, String response, String url);
 }

@@ -9,7 +9,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import security.server.domain.LogsCalls;
 import security.server.repo.ItemsRepository;
-import security.server.repo.ItemsRepositoryImpl;
 import security.server.repo.LogsCallsRepository;
 
 import javax.inject.Inject;
@@ -39,7 +38,7 @@ public class ItemsController {
      * @return          Texto en formato json con la información del item y sus hijos.
      */
     @Get("/{itemId}")
-    public Maybe<?> read(String itemId) {
+    public Maybe<?> read(String itemId) throws Exception{
         Maybe<?> response = Maybe.create(emitter -> {
             long initialTime = System.nanoTime();
             String statusCode = "";
@@ -53,9 +52,9 @@ public class ItemsController {
                     responseLog = info.get();
                     emitter.onSuccess(info.get());
                 } else {
-                    statusCode = "200";
-                    responseLog = Optional.empty().toString();
-                    emitter.onSuccess(Optional.empty());
+                    statusCode = "500";
+                    responseLog = "Item no encontrado";
+                    emitter.onError(new Exception("Item no encontrado"));
                 }
 
             } catch( Exception exception ) {
@@ -67,7 +66,7 @@ public class ItemsController {
                 long executionTime = System.nanoTime() - initialTime;
                 String requestLog = itemId;
                 String url = "Get /{itemId}";
-                logsCallsRepository.create( executionTime+"", statusCode, LogsCalls.ORIGIN_INTERNAL, requestLog,  responseLog, url);
+                logsCallsRepository.create( executionTime, statusCode, LogsCalls.ORIGIN_INTERNAL, requestLog,  responseLog, url);
             }
         });
 
