@@ -172,10 +172,10 @@
     </dependencies>
   </dependencyManagement>
   <properties>
-    <micronaut.version>2.0.1</micronaut.version>
+    <jdk.version>1.8</jdk.version>
     <exec.mainClass>security.server.Application</exec.mainClass>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-    <jdk.version>1.8</jdk.version>
+    <micronaut.version>2.0.1</micronaut.version>
   </properties>
 </project>
 

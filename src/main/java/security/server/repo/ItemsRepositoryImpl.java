@@ -9,6 +9,8 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import security.server.clients.MercadoLibreApiClient;
 import security.server.domain.Items;
+import security.server.domain.LogsCalls;
+import security.server.utils.LogsUtilities;
 
 import javax.inject.Singleton;
 import javax.persistence.EntityManager;
@@ -28,6 +30,9 @@ public class ItemsRepositoryImpl implements ItemsRepository {
     @Inject
     private MercadoLibreApiClient mercadoLibreApiClient;
 
+    @Inject
+    private LogsCallsRepository logsCallsRepository;
+
     private static final Logger LOG = LoggerFactory.getLogger(ItemsRepositoryImpl.class);
 
     public ItemsRepositoryImpl() {
@@ -40,10 +45,11 @@ public class ItemsRepositoryImpl implements ItemsRepository {
      * @param childrenResult    Json con la info de los hijos del item.
      * @return                  El objeto creado, o Null si no se creó.
      */
+    @Transactional
     private Optional<?> createOnDataBase(String itemId, String parentResult, String childrenResult, String itemsResult) {
         try {
-            String dateCreated = ""; //Todo: registrar la fecha
-            String lastUpdated = ""; //Todo: registrar la fecha
+            String dateCreated = LogsUtilities.getToday();
+            String lastUpdated = LogsUtilities.getToday();
             Items itemsObject = new Items(itemId, parentResult, childrenResult, itemsResult, dateCreated, lastUpdated);
             entityManager.persist(itemsObject);
             return Optional.of(itemsObject);
@@ -97,11 +103,11 @@ public class ItemsRepositoryImpl implements ItemsRepository {
             LOG.info(itemId+" no existe en la BD. Se consulta de la API.");
 
             //Consultando la información del ITEM.
-            String parentResult = mercadoLibreApiClient.getItem( itemId ).get();
+            String parentResult = getItemExternal(itemId);
             LOG.info("- Consultando "+itemId+": "+parentResult);
 
             //Consultando la información de los hijos del ITEM.
-            String childrenResult  = mercadoLibreApiClient.getItemChildren( itemId ).get();
+            String childrenResult  = getItemChildrenExternal( itemId );
             LOG.info("- Consultando "+itemId+" children: "+childrenResult);
 
             //Convirtiendo la información obtenida en el formato esperado.
@@ -121,6 +127,64 @@ public class ItemsRepositoryImpl implements ItemsRepository {
             LOG.error("No se encontró el item "+itemId+". "+exception.getMessage());
             return Optional.empty();
         }
+    }
+
+    /**
+     * Consulta el API externo para obtener la información de un item.
+     * @param itemId    Item que se quiere consultar.
+     * @return          Información del item.
+     */
+    private String getItemExternal( String itemId ) {
+        long initialTime = System.nanoTime();
+        String statusCode = "";
+        String responseLog = "";
+        String response = "";
+        try {
+            statusCode = "200";
+            response  = mercadoLibreApiClient.getItem( itemId ).get();
+            responseLog = response;
+        }
+        catch( Exception exception ) {
+            statusCode = "500";
+            responseLog = exception.getMessage();
+            LOG.error("Error consutando api externa: "+exception);
+        }
+        finally {
+            long executionTime = System.nanoTime() - initialTime;
+            String requestLog = itemId;
+            String url = LogsCalls.URL_PARENT;
+            logsCallsRepository.create( executionTime+"", statusCode, LogsCalls.ORIGIN_EXTERNAL, requestLog,  responseLog, url);
+        }
+        return response;
+    }
+
+    /**
+     * Consulta el API externo para obtener la información de los hijos de un item.
+     * @param itemId    Item que se quiere consultar.
+     * @return          Información de los hijos del item.
+     */
+    private String getItemChildrenExternal( String itemId ) {
+        long initialTime = System.nanoTime();
+        String statusCode = "";
+        String responseLog = "";
+        String response = "";
+        try {
+            statusCode = "200";
+            response  = mercadoLibreApiClient.getItemChildren( itemId ).get();
+            responseLog = response;
+        }
+        catch( Exception exception ) {
+            statusCode = "500";
+            responseLog = exception.getMessage();
+            LOG.error("Error consutando api externa: "+exception);
+        }
+        finally {
+            long executionTime = System.nanoTime() - initialTime;
+            String requestLog = itemId;
+            String url = LogsCalls.URL_CHILDREN;
+            logsCallsRepository.create( executionTime+"", statusCode, LogsCalls.ORIGIN_EXTERNAL, requestLog,  responseLog, url);
+        }
+        return response;
     }
 
 }
