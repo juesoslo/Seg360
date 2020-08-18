@@ -2,7 +2,7 @@
 
 Este proyecto está implementado con Java, utilizando Micronaut framework.
 
-##¿Cómo ejecutar la aplicación?
+## ¿Cómo ejecutar la aplicación?
 
 ### Variables de entorno
 
@@ -19,13 +19,13 @@ Se consideran las siguientes variables de entorno, las cuales pueden ser modific
 - Los datos de acceso a la base de datos deben ser verificados antes de ejecutar la aplicación. 
 - Las tablas serán creadas automáticamente al ejecutar la aplicación por primera vez.
 
-###Ejecución
+### Ejecución
 Una vez configurado, se puede ejecutar con maven:
 
     mvn clean compile install exec:exec
 
 
-##¿Cómo ejecutar por medio de docker?
+## ¿Cómo ejecutar por medio de docker?
 
 Se deben seguir los siguientes pasos para ejecutar la aplicación como docker:
 

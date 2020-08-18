@@ -23,16 +23,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="4f7c7c29-62b4-41b6-87cf-4ff122849e0d" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/Dockerfile" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/docker-build.sh" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/images/Seg360api.jpg" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/appengine/app.yaml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/security/server/controller/HealthController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/security/server/controller/HealthController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/security/server/controller/ItemsController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/security/server/controller/ItemsController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/security/server/utils/LogsUtilities.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/security/server/utils/LogsUtilities.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/application.yml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/application.yml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -151,7 +142,14 @@
       <option name="project" value="LOCAL" />
       <updated>1597725573407</updated>
     </task>
-    <option name="localTasksCounter" value="9" />
+    <task id="LOCAL-00009" summary="Se agrega README.md">
+      <created>1597736473931</created>
+      <option name="number" value="00009" />
+      <option name="presentableId" value="LOCAL-00009" />
+      <option name="project" value="LOCAL" />
+      <updated>1597736473931</updated>
+    </task>
+    <option name="localTasksCounter" value="10" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -173,7 +171,8 @@
     <MESSAGE value="Se agregan pojos para el healthchek" />
     <MESSAGE value="Se agrega el endpoint para el healthchek" />
     <MESSAGE value="Se agrega al endpoint para el healthchek el conteo de los requests." />
-    <option name="LAST_COMMIT_MESSAGE" value="Se agrega al endpoint para el healthchek el conteo de los requests." />
+    <MESSAGE value="Se agrega README.md" />
+    <option name="LAST_COMMIT_MESSAGE" value="Se agrega README.md" />
   </component>
   <component name="WindowStateProjectService">
     <state x="479" y="131" width="1024" height="852" key="#Project_Structure" timestamp="1597197608021">
@@ -193,11 +192,11 @@
       <screen x="0" y="27" width="1920" height="1053" />
     </state>
     <state x="351" y="17" width="1197" height="1060" key="#com.intellij.refactoring.rename.AutomaticRenamingDialog/1920.0.1920.1080/0.27.1920.1053@0.27.1920.1053" timestamp="1597039334926" />
-    <state x="453" y="97" width="1100" height="871" key="CommitChangelistDialog2" timestamp="1597725573088">
+    <state x="453" y="97" width="1100" height="871" key="CommitChangelistDialog2" timestamp="1597736473805">
       <screen x="72" y="27" width="1848" height="1053" />
     </state>
     <state x="396" y="97" width="1118" height="893" key="CommitChangelistDialog2/1920.0.1920.1080/0.27.1920.1053@0.27.1920.1053" timestamp="1597046896820" />
-    <state x="453" y="97" width="1100" height="871" key="CommitChangelistDialog2/72.27.1848.1053@72.27.1848.1053" timestamp="1597725573088" />
+    <state x="453" y="97" width="1100" height="871" key="CommitChangelistDialog2/72.27.1848.1053@72.27.1848.1053" timestamp="1597736473805" />
     <state width="1802" height="184" key="GridCell.Tab.0.bottom" timestamp="1597733722946">
       <screen x="72" y="27" width="1848" height="1053" />
     </state>
@@ -230,11 +229,11 @@
       <screen x="72" y="27" width="1848" height="1053" />
     </state>
     <state x="731" y="237" width="519" height="640" key="RollbackChangesDialog/72.27.1848.1053@72.27.1848.1053" timestamp="1597197842309" />
-    <state x="606" y="276" width="800" height="535" key="Vcs.Push.Dialog.v2" timestamp="1597725575723">
+    <state x="606" y="276" width="800" height="535" key="Vcs.Push.Dialog.v2" timestamp="1597736476320">
       <screen x="72" y="27" width="1848" height="1053" />
     </state>
     <state x="555" y="276" width="800" height="535" key="Vcs.Push.Dialog.v2/1920.0.1920.1080/0.27.1920.1053@0.27.1920.1053" timestamp="1597046904156" />
-    <state x="606" y="276" width="800" height="535" key="Vcs.Push.Dialog.v2/72.27.1848.1053@72.27.1848.1053" timestamp="1597725575723" />
+    <state x="606" y="276" width="800" height="535" key="Vcs.Push.Dialog.v2/72.27.1848.1053@72.27.1848.1053" timestamp="1597736476320" />
     <state x="777" y="468" width="428" height="177" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2" timestamp="1597197777200">
       <screen x="72" y="27" width="1848" height="1053" />
     </state>
