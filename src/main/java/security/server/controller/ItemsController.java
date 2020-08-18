@@ -1,6 +1,7 @@
 package security.server.controller;
 
 import io.micronaut.http.annotation.*;
+import io.micronaut.retry.annotation.Retryable;
 import io.micronaut.security.annotation.Secured;
 import io.micronaut.security.rules.SecurityRule;
 import io.micronaut.validation.Validated;
@@ -38,6 +39,7 @@ public class ItemsController {
      * @return          Texto en formato json con la información del item y sus hijos.
      */
     @Get("/{itemId}")
+    @Retryable(attempts = "5", multiplier = "2.0", delay = "2s")
     public Maybe<?> read(String itemId) throws Exception{
         Maybe<?> response = Maybe.create(emitter -> {
             long initialTime = System.nanoTime();

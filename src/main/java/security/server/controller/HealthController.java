@@ -2,6 +2,7 @@ package security.server.controller;
 
 import io.micronaut.http.annotation.Controller;
 import io.micronaut.http.annotation.Get;
+import io.micronaut.retry.annotation.Retryable;
 import io.micronaut.security.annotation.Secured;
 import io.micronaut.security.rules.SecurityRule;
 import io.micronaut.validation.Validated;
@@ -34,6 +35,7 @@ public class HealthController {
      * @return  El estado de los procesos.
      */
     @Get("/")
+    @Retryable(attempts = "5", multiplier = "2.0", delay = "2s")
     public Maybe<?> read() throws Exception{
         Maybe<?> response = Maybe.create(emitter -> {
             try {
