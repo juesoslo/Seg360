@@ -1,5 +1,8 @@
 package security.server.pojos;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
+
+import java.util.ArrayList;
 import java.util.List;
 
 public class HealthInfoPojo {
@@ -8,7 +11,9 @@ public class HealthInfoPojo {
     private long total_requests;
     private long avg_response_time_api_calls;
     private long total_count_api_calls;
-    private List<HealthInfoRequestsPojo> info_requests;
+
+    @JsonInclude
+    private List<HealthInfoRequestsPojo> info_requests = new ArrayList<>();
 
     public HealthInfoPojo() {
     }

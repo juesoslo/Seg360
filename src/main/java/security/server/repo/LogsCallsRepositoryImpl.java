@@ -7,6 +7,7 @@ import security.server.clients.MercadoLibreApiClient;
 import security.server.domain.Items;
 import security.server.domain.LogsCalls;
 import security.server.pojos.HealthInfoPojo;
+import security.server.pojos.HealthInfoRequestsPojo;
 import security.server.utils.LogsUtilities;
 
 import javax.inject.Inject;
@@ -69,7 +70,20 @@ public class LogsCallsRepositoryImpl implements LogsCallsRepository {
      */
     @Transactional
     public Optional<?> read() {
-        return readFromDataBaseByMinute();
+        List<HealthInfoPojo> logByMinute = readFromDataBaseByMinute().get();
+
+        if(logByMinute.isEmpty() == false) {
+            List<HealthInfoRequestsPojo> logRequestsByMinute = readFromDataBaseExternalResultsByMinute().get();
+
+            if(logRequestsByMinute.isEmpty() == false) {
+                for(HealthInfoRequestsPojo child: logRequestsByMinute)
+                    for(HealthInfoPojo parent: logByMinute)
+                        if( parent.getDate().equalsIgnoreCase( child.getDate() ) )
+                            parent.getInfo_requests().add(child);
+            }
+        }
+
+        return Optional.of(logByMinute);
     }
 
     /**
@@ -77,7 +91,7 @@ public class LogsCallsRepositoryImpl implements LogsCallsRepository {
      * @return  Info registrada por cada minuto.
      */
     @Transactional @ReadOnly
-    private Optional<?> readFromDataBaseByMinute( ) {
+    private Optional<List<HealthInfoPojo>> readFromDataBaseByMinute( ) {
         try {
             String qlString = "Select dates.datebyminute as date," +
                     "                coalesce(internal.promedio, 0) as avg_response_time," +
@@ -107,6 +121,31 @@ public class LogsCallsRepositoryImpl implements LogsCallsRepository {
 
 
             Query query = entityManager.createNativeQuery(qlString, "HealthInfoResult");
+
+            return Optional.of( query.getResultList() );
+        }
+        catch( Exception exception ) {
+            LOG.error("No se generó la info del healthcheck. "+exception.getMessage());
+            return Optional.empty();
+        }
+    }
+
+    /**
+     * Lee la info de requests registrada por cada minuto.
+     * @return  Info de requests registrada por cada minuto.
+     */
+    @Transactional @ReadOnly
+    private Optional<List<HealthInfoRequestsPojo>> readFromDataBaseExternalResultsByMinute( ) {
+        try {
+            String qlString = "select cast(date_trunc('minute', TO_TIMESTAMP(execution_date, 'YYYY-MM-DD\"T\"HH24:MI:SS.MS\"Z\"')) as varchar) as date,\n" +
+                    "\t\t\tstatus_code,\n" +
+                    "\t\t\tcount(1) as count\n" +
+                    "\t  from LogsCalls lc2\n" +
+                    "\t where lc2.origin = 'EXTERNAL'\n" +
+                    "\t group by 1, 2";
+
+
+            Query query = entityManager.createNativeQuery(qlString, "HealthInfoRequestResult");
 
             return Optional.of( query.getResultList() );
         }

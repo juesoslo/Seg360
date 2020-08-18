@@ -1,6 +1,7 @@
 package security.server.domain;
 
 import security.server.pojos.HealthInfoPojo;
+import security.server.pojos.HealthInfoRequestsPojo;
 
 import javax.persistence.*;
 
@@ -16,6 +17,14 @@ import javax.persistence.*;
                         @ColumnResult(name = "total_requests", type = Long.class),
                         @ColumnResult(name = "avg_response_time_api_calls", type = Long.class),
                         @ColumnResult(name = "total_count_api_calls", type = Long.class),
+                })
+})
+@SqlResultSetMapping(name = "HealthInfoRequestResult", classes = {
+        @ConstructorResult(targetClass = HealthInfoRequestsPojo.class,
+                columns = {
+                        @ColumnResult(name = "date", type = String.class),
+                        @ColumnResult(name = "status_code", type = String.class),
+                        @ColumnResult(name = "count", type = Long.class),
                 })
 })
 @Entity
